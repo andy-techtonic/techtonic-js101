@@ -18,12 +18,42 @@ var library = {
       'Jon Duckett',
       348,
       2014
+    ),
+    new Book (
+      'JavaScript the Good Parts',
+      'Douglas Crockford',
+      168,
+      2009
+    ),
+    new Book (
+      "Don't Make Me Think",
+      "Steve Krug",
+      216,
+      2000
     )
   ],
 
+  validate: function(anArray) {
+    for (var i = 0; i < anArray.length; i++) {
+      if(anArray[i] === null || anArray[i] === "" ) {
+        return false;
+      } else if ( typeof(anArray[i]) === 'number' || anArray[i].length > 4 ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
+
   addBook: function(title, author, pages, yearPublished) {
+    var anArray = [];
+    anArray.push(title, author, pages, yearPublished);
+    if(this.validate(anArray) === false) {
+      console.log('Please enter valid inputs')
+      return false;
+    }
     for (var i = 0; i < this.books.length; i++) {
-      if (this.books[i].title === title) {
+      if (this.books[i].title.toLowerCase() === title.toLowerCase()) {
         console.log("Library already contains that title")
         return false;
       }
@@ -36,7 +66,7 @@ var library = {
 
   removeBookByTitle: function(title) {
     for (var i = 0; i < this.books.length; i++) {
-      if(this.books[i].title === title) {
+      if(this.books[i].title.toLowerCase() === title.toLowerCase()) {
         this.books.splice(i, 1);
         console.log(title, 'removed from library');
         return true;
@@ -49,7 +79,7 @@ var library = {
   removeBooksByAuthor: function(author) {
     var libraryInitialLength = this.books.length;
     for (var i = 0; i < this.books.length; i++) {
-      if(this.books[i].author === author) {
+      if(this.books[i].author.toLowerCase() === author.toLowerCase()) {
         this.books.splice(i, 1);
         console.log('Books by', author, 'removed from library');
       }
@@ -69,33 +99,35 @@ var library = {
       var random = Math.floor(Math.random() * this.books.length);
       console.log("Here's a random book...", this.books[random]);
     }
-    return;
+    return true;
   },
 
   getBookByTitle: function(title) {
-    var titleWords = title.split(' ')
+    var titleWords = title.toLowerCase().split(' ');
     var match = [];
     for (var i = 0; i < titleWords.length; i++) {
       for (var j = 0; j < this.books.length; j++) {
-        if( this.books[j].title.includes(titleWords[i]) ) {
+        if( this.books[j].title.toLowerCase().includes(titleWords[i]) ) {
           match.push(this.books[j]);
         }
       }
     }
     console.log('Here are the books with titles that match any words in your search: ', match);
+    return true
   },
 
   getBooksByAuthor: function (authorName) {
-    var authorNameComponents = authorName.split(' ')
+    var authorNameComponents = authorName.toLowerCase().split(' ')
     var match = [];
     for (var i = 0; i < authorNameComponents.length; i++) {
       for (var j = 0; j < this.books.length; j++) {
-        if( this.books[j].author.includes(authorNameComponents[i]) ) {
+        if( this.books[j].author.toLowerCase().includes(authorNameComponents[i]) ) {
           match.push(this.books[j]);
         }
       }
     }
     console.log('Here are the books with authors that match any words in your search: ', match);
+    return true
   },
 
   addBooks: function(arrayOfBooks) {
