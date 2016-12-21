@@ -65,6 +65,12 @@ var library = {
   },
 
   removeBookByTitle: function(title) {
+    var anArray = [];
+    anArray.push(title, author, pages, yearPublished);
+    if(this.validate(anArray) === false) {
+      console.log('Please enter valid inputs')
+      return false;
+    }
     for (var i = 0; i < this.books.length; i++) {
       if(this.books[i].title.toLowerCase() === title.toLowerCase()) {
         this.books.splice(i, 1);
@@ -77,6 +83,12 @@ var library = {
   },
 
   removeBooksByAuthor: function(author) {
+    var anArray = [];
+    anArray.push(title, author, pages, yearPublished);
+    if(this.validate(anArray) === false) {
+      console.log('Please enter valid inputs')
+      return false;
+    }
     var libraryInitialLength = this.books.length;
     for (var i = 0; i < this.books.length; i++) {
       if(this.books[i].author.toLowerCase() === author.toLowerCase()) {
@@ -103,6 +115,12 @@ var library = {
   },
 
   getBookByTitle: function(title) {
+    var anArray = [];
+    anArray.push(title, author, pages, yearPublished);
+    if(this.validate(anArray) === false) {
+      console.log('Please enter valid inputs')
+      return false;
+    }
     var titleWords = title.toLowerCase().split(' ');
     var match = [];
     for (var i = 0; i < titleWords.length; i++) {
@@ -117,6 +135,12 @@ var library = {
   },
 
   getBooksByAuthor: function (authorName) {
+    var anArray = [];
+    anArray.push(title, author, pages, yearPublished);
+    if(this.validate(anArray) === false) {
+      console.log('Please enter valid inputs')
+      return false;
+    }
     var authorNameComponents = authorName.toLowerCase().split(' ')
     var match = [];
     for (var i = 0; i < authorNameComponents.length; i++) {
@@ -131,12 +155,17 @@ var library = {
   },
 
   addBooks: function(arrayOfBooks) {
+    if(this.validate(arrayOfBooks) === false) {
+      console.log('Please enter valid inputs')
+      return false;
+    }
     var numBooksAdded = 0;
     for (var i = 0; i < arrayOfBooks.length; i++) {
       this.books.push(arrayOfBooks[i])
       numBooksAdded +=1;
     }
     console.log(numBooksAdded, 'books added');
+    return true;
   },
 
   getAuthors: function() {
@@ -147,6 +176,7 @@ var library = {
       }
     }
     console.log('authors',authors);
+    return true;
   },
 
   getRandomAuthorName: function() {
@@ -157,6 +187,6 @@ var library = {
       var random = Math.floor(Math.random() * this.books.length);
       console.log(this.books[random].author);
     }
-      return;
+      return true;
     }
 }
